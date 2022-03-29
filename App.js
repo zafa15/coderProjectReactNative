@@ -1,17 +1,17 @@
 //import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, FlatList, Modal } from 'react-native';
+import AddItem from './components/AddItem';
+import ModalItem from './components/Modal';
 
 export default function App() {
   const [counter, setCounter] = useState(3)
   const [textItem, setTextItem] = useState('');
   const [itemList, setItemList] = useState([{ id: 1, name: 'Iosef' }, { id: 2, name: 'Dali' }]);
-
   const [itemSelected, setItemSelected] = useState({});
-  const [modalVisible, setModalVisible] = useState(true);
-
+  const [modalVisible, setModalVisible] = useState(false);
   const onHandlerChangeItem = (txt) => setTextItem(txt);
-  const renderItem = data => <Text key={data.item.id}>{data.item.name}</Text>;
+  const renderItem = data => <Text key={data.item.id} onPress={onHandlerModal.bind(this, data.item.id)}>{data.item.name}</Text>;
 
   const addItem = () => {
 
@@ -36,9 +36,14 @@ export default function App() {
     setItemSelected({});
     setModalVisible(!modalVisible);
   }
+  
 
   const onHandlerModal = id =>{
     setItemSelected(itemList.filter(item => item.id === id)[0]);
+    setModalVisible(!modalVisible);
+  }
+
+  const closeModal = () => {
     setModalVisible(!modalVisible);
   }
 
@@ -46,15 +51,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.textBold}>Hello World !</Text>
-        <TextInput
-          style={styles.inputText}
-          placeholder="Ingrese su numero"
-          value={textItem}
-          onChangeText={onHandlerChangeItem} />
-        <Button title='Agregar' onPress={addItem} />
-      </View>
+      <AddItem onAddItem={addItem} onChange={onHandlerChangeItem} value={textItem}/>
       <View style={styles.body}>
         {/* {
           itemList.map(item => <Text key={item.id}>{item.name}</Text>)
@@ -65,26 +62,7 @@ export default function App() {
           keyExtractor={item => item.id}
         />
       </View>
-
-      <Modal
-      animationType='slide'
-      visible={modalVisible}
-      >
-        <View>
-          <Text>Mi Modal</Text>
-        </View>
-        <View>
-          <Text>Estas seguro que deseas borrarlo?</Text>
-        </View>
-        <View>
-          <Text>{itemSelected.name}</Text>
-        </View>
-
-        <View>
-          <Button onPress={onHandlerDelete.bind(this, itemSelected.id)} title="Confirmar"/>
-        </View>
-
-      </Modal>
+      <ModalItem visible={modalVisible} onDelete={onHandlerDelete} item={itemSelected} closeModal={closeModal}/>
 
     </View>
   );
