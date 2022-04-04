@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
       },
     
       textBold: {
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        marginBottom:10
       },
     
       inputText: {

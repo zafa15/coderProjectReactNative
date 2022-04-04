@@ -1,7 +1,8 @@
 //import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, FlatList, Modal } from 'react-native';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
 import AddItem from './components/AddItem';
+import IndexListItem from './components/List/IndexListItem';
 import ModalItem from './components/Modal';
 
 export default function App() {
@@ -11,8 +12,8 @@ export default function App() {
   const [itemSelected, setItemSelected] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
   const onHandlerChangeItem = (txt) => setTextItem(txt);
-  const renderItem = data => <Text key={data.item.id} onPress={onHandlerModal.bind(this, data.item.id)}>{data.item.name}</Text>;
-
+  /* const renderItem = data => <Text key={data.item.id} onPress={onHandlerModal.bind(this, data.item.id)}>{data.item.name}</Text>;
+ */
   const addItem = () => {
 
     if (textItem !== '') {
@@ -53,14 +54,7 @@ export default function App() {
     <View style={styles.container}>
       <AddItem onAddItem={addItem} onChange={onHandlerChangeItem} value={textItem}/>
       <View style={styles.body}>
-        {/* {
-          itemList.map(item => <Text key={item.id}>{item.name}</Text>)
-        } */}
-        <FlatList
-          data={itemList}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-        />
+        <IndexListItem itemList={itemList} onHandlerModal={onHandlerModal}/>
       </View>
       <ModalItem visible={modalVisible} onDelete={onHandlerDelete} item={itemSelected} closeModal={closeModal}/>
 
