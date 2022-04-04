@@ -10,10 +10,10 @@ const AddItem = (props) => {
             <Text style={styles.textBold}>Hello World !</Text>
             <TextInput
             style={styles.inputText}
-            placeholder="Ingrese su numero"
+            placeholder="Ingrese su producto"
             value={value}
             onChangeText={onChange} />
-            <Button title='Agregar' onPress={onAddItem} />
+            <Button title='Agregar Producto' onPress={onAddItem} />
       </View>
     )
 }

@@ -8,7 +8,7 @@ import ModalItem from './components/Modal';
 export default function App() {
   const [counter, setCounter] = useState(3)
   const [textItem, setTextItem] = useState('');
-  const [itemList, setItemList] = useState([{ id: 1, name: 'Iosef' }, { id: 2, name: 'Dali' }]);
+  const [itemList, setItemList] = useState([{ id: 1, name: 'Tablet' }, { id: 2, name: 'Iphone' }]);
   const [itemSelected, setItemSelected] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
   const onHandlerChangeItem = (txt) => setTextItem(txt);
@@ -56,8 +56,10 @@ export default function App() {
       <View style={styles.body}>
         <IndexListItem itemList={itemList} onHandlerModal={onHandlerModal}/>
       </View>
-      <ModalItem visible={modalVisible} onDelete={onHandlerDelete} item={itemSelected} closeModal={closeModal}/>
 
+      <View style={styles.modalContent}>
+        <ModalItem visible={modalVisible} onDelete={onHandlerDelete} item={itemSelected} closeModal={closeModal}/>
+      </View>
     </View>
   );
 }
@@ -93,5 +95,10 @@ const styles = StyleSheet.create({
   inputText: {
     padding: 8,
     marginBottom: 10
+  },
+
+  modalContent:{
+
   }
+
 });
